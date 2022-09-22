@@ -94,6 +94,11 @@ class vbnetPrintVisitor(vbnetParserVisitor):
     #        ctx.IDENTIFIER().getText(),
     #        ctx.IDENTIFIER().getText())
 
+    def visitTupleType(self, ctx):
+        return "[%s, %s]" % (
+            self.visit(ctx.typeName(0)),
+            self.visit(ctx.typeName(1)))
+
     def visitArrayType(self, ctx):
         if ctx.IDENTIFIER():
             return "%s[]" % ctx.IDENTIFIER().getText()

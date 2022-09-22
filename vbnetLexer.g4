@@ -19,6 +19,7 @@ PROPERTY: 'Property';
 PUBLIC: 'Public';
 READONLY: 'ReadOnly';
 SUB: 'Sub';
+TUPLE: 'Tuple';
 QUEUE: 'Queue';
 
 TRUE: 'True';

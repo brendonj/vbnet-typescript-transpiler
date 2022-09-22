@@ -92,6 +92,7 @@ enumMember
 typeName
     : IDENTIFIER                                                 # simpleType
     | ACTION                                                     # simpleType
+    | TUPLE OPENPAREN OF typeName COMMA typeName CLOSEPAREN      # tupleType
     | IDENTIFIER OPENPAREN CLOSEPAREN                            # arrayType
     | LIST OPENPAREN OF typeName CLOSEPAREN                      # arrayType
     | QUEUE OPENPAREN OF typeName CLOSEPAREN                     # arrayType
