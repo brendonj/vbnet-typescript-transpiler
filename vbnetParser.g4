@@ -20,7 +20,7 @@ interfaceStatements
     ;
 
 interfaceProperty
-    : propertyModifier? PROPERTY IDENTIFIER AS typeName
+    : propertyModifier? PROPERTY IDENTIFIER ( OPENPAREN CLOSEPAREN )? AS typeName
     ;
 
 propertyModifier
@@ -83,8 +83,12 @@ enumMember
 
 typeName
     : IDENTIFIER                                                 # simpleType
+    | ACTION                                                     # simpleType
+    | IDENTIFIER OPENPAREN CLOSEPAREN                            # unknownType
+    | FUNC OPENPAREN OF typeName COMMA typeName CLOSEPAREN       # functionType
     | LIST OPENPAREN OF typeName CLOSEPAREN                      # arrayType
     | QUEUE OPENPAREN OF typeName CLOSEPAREN                     # arrayType
+    | ACTION OPENPAREN OF typeName CLOSEPAREN                    # arrayType
     | ACTION OPENPAREN OF typeName COMMA typeName CLOSEPAREN     # mapType
     | DICTIONARY OPENPAREN OF typeName COMMA typeName CLOSEPAREN # mapType
     ;

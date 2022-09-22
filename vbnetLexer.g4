@@ -6,6 +6,7 @@ BYVAL: 'ByVal';
 DICTIONARY: 'Dictionary';
 END: 'End';
 ENUM: 'Enum';
+FUNC: 'Func';
 FUNCTION: 'Function';
 INTERFACE: 'Interface';
 INTERFACE_JUNK: '<InterfaceType(ComInterfaceType.InterfaceIsIDispatch)>';

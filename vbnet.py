@@ -31,13 +31,28 @@ class vbnetPrintVisitor(vbnetParserVisitor):
     def visitEnumMember(self, ctx):
         return ["%s" % ctx.IDENTIFIER().getText()]
 
+    def visitInterfaceDeclaration(self, ctx):
+        print("interface %s {" % ctx.IDENTIFIER().getText())
+        self.visitChildren(ctx)
+        print("}")
+
     # FUNCTION IDENTIFIER OPENPAREN parameterList? CLOSEPAREN AS typeName
     def visitInterfaceFunction(self, ctx):
         identifier = ctx.IDENTIFIER().getText()
+        params = []
         #params = self.visitChildren(ctx)
-        params = self.visit(ctx.parameterList())
-        returnType = ctx.typeName().getText()
+        if ctx.parameterList():
+            params = self.visit(ctx.parameterList())
+        #returnType = ctx.typeName().getText()
+        returnType = self.visit(ctx.typeName())
         print("%s(%s): %s" % (identifier, ", ".join(params), returnType))
+
+    def visitInterfaceSub(self, ctx):
+        identifier = ctx.IDENTIFIER().getText()
+        params = []
+        if ctx.parameterList():
+            params = self.visit(ctx.parameterList())
+        print("%s(%s)" % (identifier, ", ".join(params)))
 
     # parameterModifier* IDENTIFIER AS typeName ( EQUALS simpleExpression )?
     def visitParameter(self, ctx):
@@ -49,16 +64,47 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             self.visit(ctx.typeName()))
         ]
 
+    def visitInterfaceProperty(self, ctx):
+        modifiers = ctx.propertyModifier()
+        readonly = True if modifiers and modifiers.READONLY() else False
+        print("%s%s: %s" % (
+            "readonly " if readonly else "",
+            ctx.IDENTIFIER().getText(),
+            self.visit(ctx.typeName())))
+
     def visitSimpleType(self, ctx):
-        return ctx.IDENTIFIER().getText()
+        if ctx.IDENTIFIER():
+            return ctx.IDENTIFIER().getText()
+        if ctx.ACTION():
+            return ctx.ACTION().getText()
+
+    def visitUnknownType(self, ctx):
+        return "%s /*%s()*/" % (
+            ctx.IDENTIFIER().getText(),
+            ctx.IDENTIFIER().getText())
 
     def visitArrayType(self, ctx):
-        return "%s[]" % ctx.typeName().getText()
+        #return "%s[]" % ctx.typeName().getText()
+        return "%s[]" % self.visit(ctx.typeName())
 
     def visitMapType(self, ctx):
         return "Map<%s, %s>" % (
-            ctx.typeName(0).getText(),
-            ctx.typeName(1).getText())
+            self.visit(ctx.typeName(0)),
+            self.visit(ctx.typeName(1)))
+            #ctx.typeName(0).getText(),
+            #ctx.typeName(1).getText())
+
+    # looks like the last type is the return type?
+    def visitFunctionType(self, ctx):
+        inparams = []
+        outparam = "void"
+        params = ctx.typeName()
+        if params:
+            outparam = self.visit(params[-1:][0])
+            for i, param in enumerate(params[:-1]):
+                inparams.append("%s: %s" % (
+                    chr(ord("a") + i), self.visit(param)))
+        return "(%s) => %s" % (", ".join(inparams), outparam)
 
 
 class vbnetPrintListener(vbnetParserListener):
