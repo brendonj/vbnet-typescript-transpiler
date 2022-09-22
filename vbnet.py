@@ -18,6 +18,9 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             #aggregate.append(nextResult)
         return aggregate
 
+    def visitImportStatement(self, ctx):
+        print("// import %s" % ctx.IDENTIFIER().getText())
+
     def visitEnumDeclaration(self, ctx):
         print("enum %s {" % (ctx.IDENTIFIER().getText()))
         #members = self.visit(ctx.enumMember())

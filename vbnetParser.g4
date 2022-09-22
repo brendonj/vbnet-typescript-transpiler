@@ -9,6 +9,11 @@ start
 statement
     : enumDeclaration
     | interfaceDeclaration
+    | importStatement
+    ;
+
+importStatement
+    : IMPORTS IDENTIFIER
     ;
 
 interfaceDeclaration

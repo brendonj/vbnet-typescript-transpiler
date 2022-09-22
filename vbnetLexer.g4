@@ -8,6 +8,7 @@ END: 'End';
 ENUM: 'Enum';
 FUNC: 'Func';
 FUNCTION: 'Function';
+IMPORTS: 'Imports';
 INTERFACE: 'Interface';
 INTERFACE_JUNK: '<InterfaceType(ComInterfaceType.InterfaceIsIDispatch)>';
 LIST: 'List';
