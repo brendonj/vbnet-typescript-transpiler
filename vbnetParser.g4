@@ -17,7 +17,7 @@ importStatement
     ;
 
 interfaceDeclaration
-    : INTERFACE_JUNK PUBLIC INTERFACE IDENTIFIER interfaceStatements+ END INTERFACE
+    : PUBLIC INTERFACE IDENTIFIER interfaceStatements+ END INTERFACE
     ;
 
 interfaceStatements

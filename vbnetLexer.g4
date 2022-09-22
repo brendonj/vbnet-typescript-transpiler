@@ -10,8 +10,7 @@ FUNC: 'Func';
 FUNCTION: 'Function';
 IMPORTS: 'Imports';
 INTERFACE: 'Interface';
-INTERFACE_JUNK: '<InterfaceType(ComInterfaceType.InterfaceIsIDispatch)>';
-LIST: 'List';
+LIST: 'List' | 'System.Collections.Generic.List';
 NOTHING: 'Nothing';
 OF: 'Of';
 OPTIONAL: 'Optional';
@@ -54,6 +53,14 @@ STRINGCHARACTER
 
 IDENTIFIER
     : [a-zA-Z_][a-zA-Z0-9_.]*
+    ;
+
+INTERFACE_JUNK
+    : '<InterfaceType(ComInterfaceType.InterfaceIsIDispatch)>' -> skip
+    ;
+
+PROPERTY_JUNK
+    : '<Xml.Serialization.XmlIgnore>' -> skip
     ;
 
 COMMENT
