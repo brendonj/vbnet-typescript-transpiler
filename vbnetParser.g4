@@ -101,7 +101,3 @@ typeName
     | DICTIONARY OPENPAREN OF typeName COMMA typeName CLOSEPAREN # mapType
     | FUNC OPENPAREN OF typeName COMMA typeName CLOSEPAREN       # functionType
     ;
-
-//identifier
-//    : IDENT_NONDIGIT+
-//    ;

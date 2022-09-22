@@ -47,10 +47,6 @@ STRINGCHARACTER
     : ~["\\\r\n]
     ;
 
-//IDENT_NONDIGIT
-//    : [a-zA-Z_]
-//    ;
-
 IDENTIFIER
     : [a-zA-Z_][a-zA-Z0-9_.]*
     ;

@@ -89,11 +89,6 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         }
         return types.get(name, name)
 
-    #def visitUnknownType(self, ctx):
-    #    return "%s /*%s()*/" % (
-    #        ctx.IDENTIFIER().getText(),
-    #        ctx.IDENTIFIER().getText())
-
     def visitTupleType(self, ctx):
         return "[%s, %s]" % (
             self.visit(ctx.typeName(0)),
@@ -125,76 +120,6 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         return "(%s) => %s" % (", ".join(inparams), outparam)
 
 
-class vbnetPrintListener(vbnetParserListener):
-    def enterEnumDeclaration(self, ctx):
-        print("enum %s {" % (ctx.IDENTIFIER().getText()))
-        for i in ctx.enumMember():
-            print("%s," % i.getText())
-        print("}")
-
-    def enterInterfaceDeclaration(self, ctx):
-        print("interface %s {" % (ctx.IDENTIFIER().getText()))
-
-    def exitInterfaceDeclaration(self, ctx):
-        print("}")
-
-    def enterInterfaceProperty(self, ctx):
-        print("%s%s: %s" % (
-                    "readonly " if ctx.propertyModifier() else "",
-                    ctx.IDENTIFIER().getText(),
-                    ctx.typeName().getText()))
-
-    def enterInterfaceFunction(self, ctx):
-        print("%s(" % (ctx.IDENTIFIER().getText()), end="")
-
-    def exitInterfaceFunction(self, ctx):
-        print("): %s" % (ctx.typeName().getText()))
-
-    def enterInterfaceSub(self, ctx):
-        print("%s(" % (ctx.IDENTIFIER().getText()), end="")
-
-    def exitInterfaceSub(self, ctx):
-        print(")")
-
-    def enterParameterList(self, ctx):
-        params = []
-        for i in ctx.parameter():
-            optional = False
-            for m in i.parameterModifier():
-                try:
-                    if m.OPTIONAL():
-                        optional = True
-                        break
-                except AttributeError:
-                    pass
-
-            param = "%s%s: %s" % (
-                i.IDENTIFIER().getText(),
-                "?" if optional else "",
-                typeNameFix(i.typeName()))
-            params.append(param)
-        print(", ".join(params), end="")
-
-    # XXX try adding attributes to node that I can print later on? -- no
-    # XXX try checking parent and then printing if it's a func/prop declaration?
-# XXX -- parameters can print themselves! but what about commas/// :(
-# XXX visitor vs listener -- if I don't have to explicitly do every node?
-# XXX labelling the rules to have different listener functions?
-# XXX or add attributes to the listener class
-    def enterParameter(self, ctx):
-        print(ctx.parent)
-
-
-def typeNameFix(t):
-    if t.LIST() or t.QUEUE():
-        return "%s[]" % (t.typeName(0).getText())
-    if t.DICTIONARY() or t.ACTION():
-        return "Map<%s, %s>" % (
-            t.typeName(0).getText(),
-            t.typeName(1).getText())
-    return t.IDENTIFIER().getText()
-
-
 def main():
     lexer = vbnetLexer(antlr4.StdinStream())
     stream = antlr4.CommonTokenStream(lexer)
@@ -210,12 +135,7 @@ def main():
     parser = vbnetParser(stream)
     tree = parser.start()
 
-    result = vbnetPrintVisitor().visit(tree)
-    #print(result)
-
-    #listener = vbnetPrintListener()
-    #walker = antlr4.ParseTreeWalker()
-    #walker.walk(listener, tree)
+    vbnetPrintVisitor().visit(tree)
 
 
 if __name__ == "__main__":
