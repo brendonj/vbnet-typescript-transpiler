@@ -1,17 +1,23 @@
 lexer grammar vbnetLexer;
 
+ACTION: 'Action';
 AS: 'As';
+BYVAL: 'ByVal';
+DICTIONARY: 'Dictionary';
 END: 'End';
 ENUM: 'Enum';
 FUNCTION: 'Function';
 INTERFACE: 'Interface';
 INTERFACE_JUNK: '<InterfaceType(ComInterfaceType.InterfaceIsIDispatch)>';
+LIST: 'List';
 NOTHING: 'Nothing';
 OF: 'Of';
+OPTIONAL: 'Optional';
 PROPERTY: 'Property';
 PUBLIC: 'Public';
 READONLY: 'ReadOnly';
 SUB: 'Sub';
+QUEUE: 'Queue';
 
 TRUE: 'True';
 FALSE: 'False';
@@ -39,12 +45,16 @@ STRINGCHARACTER
     : ~["\\\r\n]
     ;
 
-IDENT_NONDIGIT
-    : [a-zA-Z_]
-    ;
+//IDENT_NONDIGIT
+//    : [a-zA-Z_]
+//    ;
 
 IDENTIFIER
-    : [a-zA-Z_][a-zA-Z0-9_]+
+    : [a-zA-Z_][a-zA-Z0-9_.]*
+    ;
+
+COMMENT
+    : '\'' ~[\n]* '\n' -> skip
     ;
 
 WHITESPACE

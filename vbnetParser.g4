@@ -16,6 +16,7 @@ interfaceStatements
     : interfaceProperty
     | interfaceFunction
     | interfaceSub
+    | enumDeclaration
     ;
 
 interfaceProperty
@@ -39,11 +40,17 @@ parameterList
     ;
 
 parameter
-    : IDENTIFIER AS typeName ( EQUALS simpleExpression )?
+    : parameterModifier* IDENTIFIER AS typeName ( EQUALS simpleExpression )?
+    ;
+
+parameterModifier
+    : BYVAL
+    | OPTIONAL
     ;
 
 simpleExpression
     : IDENTIFIER
+    | NOTHING
     | literal
     ;
 
@@ -75,9 +82,11 @@ enumMember
     ;
 
 typeName
-    : IDENTIFIER
-    | IDENTIFIER OPENPAREN OF typeName CLOSEPAREN
-    | IDENTIFIER OPENPAREN OF typeName COMMA typeName CLOSEPAREN
+    : IDENTIFIER                                                 # simpleType
+    | LIST OPENPAREN OF typeName CLOSEPAREN                      # arrayType
+    | QUEUE OPENPAREN OF typeName CLOSEPAREN                     # arrayType
+    | ACTION OPENPAREN OF typeName COMMA typeName CLOSEPAREN     # mapType
+    | DICTIONARY OPENPAREN OF typeName COMMA typeName CLOSEPAREN # mapType
     ;
 
 //identifier
