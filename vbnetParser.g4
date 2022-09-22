@@ -84,13 +84,13 @@ enumMember
 typeName
     : IDENTIFIER                                                 # simpleType
     | ACTION                                                     # simpleType
-    | IDENTIFIER OPENPAREN CLOSEPAREN                            # unknownType
-    | FUNC OPENPAREN OF typeName COMMA typeName CLOSEPAREN       # functionType
+    | IDENTIFIER OPENPAREN CLOSEPAREN                            # arrayType
     | LIST OPENPAREN OF typeName CLOSEPAREN                      # arrayType
     | QUEUE OPENPAREN OF typeName CLOSEPAREN                     # arrayType
     | ACTION OPENPAREN OF typeName CLOSEPAREN                    # arrayType
     | ACTION OPENPAREN OF typeName COMMA typeName CLOSEPAREN     # mapType
     | DICTIONARY OPENPAREN OF typeName COMMA typeName CLOSEPAREN # mapType
+    | FUNC OPENPAREN OF typeName COMMA typeName CLOSEPAREN       # functionType
     ;
 
 //identifier

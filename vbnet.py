@@ -73,17 +73,27 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             self.visit(ctx.typeName())))
 
     def visitSimpleType(self, ctx):
+        name = "UNKNOWN"
         if ctx.IDENTIFIER():
-            return ctx.IDENTIFIER().getText()
-        if ctx.ACTION():
-            return ctx.ACTION().getText()
+            name = ctx.IDENTIFIER().getText()
+        elif ctx.ACTION():
+            name = ctx.ACTION().getText()
+        types = {
+            "Boolean": "boolean",
+            "String": "string",
+            "Integer": "number",
+            "Double": "number",
+        }
+        return types.get(name, name)
 
-    def visitUnknownType(self, ctx):
-        return "%s /*%s()*/" % (
-            ctx.IDENTIFIER().getText(),
-            ctx.IDENTIFIER().getText())
+    #def visitUnknownType(self, ctx):
+    #    return "%s /*%s()*/" % (
+    #        ctx.IDENTIFIER().getText(),
+    #        ctx.IDENTIFIER().getText())
 
     def visitArrayType(self, ctx):
+        if ctx.IDENTIFIER():
+            return "%s[]" % ctx.IDENTIFIER().getText()
         #return "%s[]" % ctx.typeName().getText()
         return "%s[]" % self.visit(ctx.typeName())
 
