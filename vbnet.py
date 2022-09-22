@@ -203,7 +203,7 @@ def main():
     tree = parser.start()
 
     result = vbnetPrintVisitor().visit(tree)
-    print(result)
+    #print(result)
 
     #listener = vbnetPrintListener()
     #walker = antlr4.ParseTreeWalker()

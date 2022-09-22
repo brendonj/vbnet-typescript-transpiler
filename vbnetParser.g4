@@ -3,8 +3,11 @@ parser grammar vbnetParser;
 options { tokenVocab=vbnetLexer; }
 
 start
-    : DIGIT+
-    | enumDeclaration
+    : statement+
+    ;
+
+statement
+    : enumDeclaration
     | interfaceDeclaration
     ;
 
