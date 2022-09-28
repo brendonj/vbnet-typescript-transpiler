@@ -48,14 +48,14 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             params = self.visit(ctx.parameterList())
         #returnType = ctx.typeName().getText()
         returnType = self.visit(ctx.typeName())
-        print("%s(%s): %s" % (identifier, ", ".join(params), returnType))
+        print("%s(%s): %s;" % (identifier, ", ".join(params), returnType))
 
     def visitInterfaceSub(self, ctx):
         identifier = ctx.IDENTIFIER().getText()
         params = []
         if ctx.parameterList():
             params = self.visit(ctx.parameterList())
-        print("%s(%s)" % (identifier, ", ".join(params)))
+        print("%s(%s);" % (identifier, ", ".join(params)))
 
     # parameterModifier* IDENTIFIER AS typeName ( EQUALS simpleExpression )?
     def visitParameter(self, ctx):
@@ -76,7 +76,7 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         # XXX could move modifiers into same rule, then check ctx.READONLY()
         modifiers = ctx.propertyModifier()
         readonly = True if modifiers and modifiers.READONLY() else False
-        print("%s%s: %s" % (
+        print("%s%s: %s;" % (
             "readonly " if readonly else "",
             ctx.IDENTIFIER().getText(),
             self.visit(ctx.typeName())))
