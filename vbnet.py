@@ -35,7 +35,9 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         return ["%s" % ctx.IDENTIFIER().getText()]
 
     def visitInterfaceDeclaration(self, ctx):
-        print("interface %s {" % ctx.IDENTIFIER().getText())
+        print("%sinterface %s {" % (
+            "export " if ctx.PUBLIC() else "",
+            ctx.IDENTIFIER().getText()))
         self.visitChildren(ctx)
         print("}")
 
