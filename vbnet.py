@@ -55,7 +55,7 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         params = []
         if ctx.parameterList():
             params = self.visit(ctx.parameterList())
-        print("%s(%s);" % (identifier, ", ".join(params)))
+        print("%s(%s): void;" % (identifier, ", ".join(params)))
 
     # parameterModifier* IDENTIFIER AS typeName ( EQUALS simpleExpression )?
     def visitParameter(self, ctx):
