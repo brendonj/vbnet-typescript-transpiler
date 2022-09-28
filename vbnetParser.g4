@@ -17,7 +17,7 @@ importStatement
     ;
 
 interfaceDeclaration
-    : PUBLIC INTERFACE IDENTIFIER interfaceStatements+ END INTERFACE
+    : PUBLIC INTERFACE IDENTIFIER interfaceStatements+ END_INTERFACE
     ;
 
 interfaceStatements
@@ -82,7 +82,7 @@ numericLiteral
     ;
 
 enumDeclaration
-    : ENUM IDENTIFIER enumMember+ END ENUM
+    : ENUM IDENTIFIER enumMember+ END_ENUM
     ;
 
 enumMember
