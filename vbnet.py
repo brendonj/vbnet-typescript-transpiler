@@ -73,6 +73,7 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         ]
 
     def visitInterfaceProperty(self, ctx):
+        # XXX could move modifiers into same rule, then check ctx.READONLY()
         modifiers = ctx.propertyModifier()
         readonly = True if modifiers and modifiers.READONLY() else False
         print("%s%s: %s" % (
@@ -83,6 +84,51 @@ class vbnetPrintVisitor(vbnetParserVisitor):
     def visitNamespaceDeclaration(self, ctx):
         print("namespace %s {" % ctx.IDENTIFIER().getText())
         self.visitChildren(ctx)
+        print("}")
+
+    # classModifier? CLASS IDENTIFIER inheritsStatement? classStatement+ END CLASS
+    def visitClassDeclaration(self, ctx):
+        base = ""
+        if ctx.inheritsStatement():
+            base = ctx.inheritsStatement().IDENTIFIER().getText()
+        print("class %s%s {" % (
+            ctx.IDENTIFIER().getText(),
+            " extends %s" % base if base else ""))
+        self.visitChildren(ctx)
+        print("}")
+
+    # XXX check if this will actually be different to interface properties
+    def visitClassProperty(self, ctx):
+        default = ""
+        if ctx.simpleExpression():
+            #default = ctx.simpleExpression().getText()
+            default = self.visit(ctx.simpleExpression())
+        print("%s: %s%s;" % (
+            ctx.IDENTIFIER().getText(),
+            self.visit(ctx.typeName()),
+            " = %s" % default if default else "",
+            ))
+
+    def visitClassFunction(self, ctx):
+        identifier = ctx.IDENTIFIER().getText()
+        params = []
+        #params = self.visitChildren(ctx)
+        if ctx.parameterList():
+            params = self.visit(ctx.parameterList())
+        #returnType = ctx.typeName().getText()
+        returnType = self.visit(ctx.typeName())
+        print("%s(%s): %s {" % (identifier, ", ".join(params), returnType))
+        print("/* TODO implement function body */")
+        print("}")
+
+    def visitClassSub(self, ctx):
+        identifier = ctx.IDENTIFIER().getText()
+        params = []
+        #params = self.visitChildren(ctx)
+        if ctx.parameterList():
+            params = self.visit(ctx.parameterList())
+        print("%s(%s) {" % (identifier, ", ".join(params)))
+        print("/* TODO implement function body */")
         print("}")
 
     def visitSimpleExpression(self, ctx):

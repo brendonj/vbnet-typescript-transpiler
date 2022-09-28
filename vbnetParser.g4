@@ -11,6 +11,7 @@ statement
     | interfaceDeclaration
     | importStatement
     | namespaceDeclaration
+    | classDeclaration
     ;
 
 importStatement
@@ -46,6 +47,53 @@ interfaceFunction
 
 interfaceSub
     : SUB IDENTIFIER OPENPAREN parameterList? CLOSEPAREN
+    ;
+
+inheritsStatement
+    : INHERITS IDENTIFIER
+    ;
+
+classModifier
+    : PUBLIC
+    ;
+
+classDeclaration
+    : classModifier? CLASS IDENTIFIER inheritsStatement? classStatement+ END_CLASS
+    ;
+
+classStatement
+    : classProperty
+    | classFunction
+    | classSub
+    ;
+
+classProperty
+    : PUBLIC? PROPERTY IDENTIFIER ( OPENPAREN CLOSEPAREN )? AS typeName ( EQUALS simpleExpression )?
+    ;
+
+classFunction
+    : PUBLIC? OVERRIDES? FUNCTION IDENTIFIER OPENPAREN parameterList? CLOSEPAREN AS typeName functionBody+ END_FUNCTION
+    ;
+
+classSub
+    : PUBLIC? OVERRIDES? SUB IDENTIFIER OPENPAREN parameterList? CLOSEPAREN ( AS typeName )? functionBody+ END_SUB
+    ;
+
+/* XXX this needs to be a whole line of stuff if I want to print it nicely */
+functionBody
+    : IDENTIFIER
+    | FUNCTION_BODY_JUNK
+    | AS
+    | OPENPAREN
+    | CLOSEPAREN
+    | EQUALS
+    | LIST
+    | OF
+    | COMMA
+    | TRUE
+    | FALSE
+    | NUMBER
+    | STRINGLITERAL
     ;
 
 parameterList

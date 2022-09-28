@@ -3,6 +3,7 @@ lexer grammar vbnetLexer;
 ACTION: 'Action';
 AS: 'As';
 BYVAL: 'ByVal';
+CLASS: 'Class';
 DICTIONARY: 'Dictionary';
 END_CLASS: 'End Class';
 END_ENUM: 'End Enum';
@@ -14,12 +15,14 @@ ENUM: 'Enum';
 FUNC: 'Func';
 FUNCTION: 'Function';
 IMPORTS: 'Imports';
+INHERITS: 'Inherits';
 INTERFACE: 'Interface';
 LIST: 'List' | 'System.Collections.Generic.List';
 NAMESPACE: 'Namespace';
 NOTHING: 'Nothing';
 OF: 'Of';
 OPTIONAL: 'Optional';
+OVERRIDES: 'Overrides';
 PROPERTY: 'Property';
 PUBLIC: 'Public';
 READONLY: 'ReadOnly';
@@ -36,9 +39,9 @@ OPENPAREN: '(';
 CLOSEPAREN: ')';
 DOUBLEQUOTE: '"';
 
-DIGIT
-    : [0-9]
-    ;
+//DIGIT
+//    : [0-9]
+//    ;
 
 NUMBER
     : [0-9]+
@@ -55,6 +58,10 @@ STRINGCHARACTER
 
 IDENTIFIER
     : [a-zA-Z_][a-zA-Z0-9_.]*
+    ;
+
+CLASS_JUNK
+    : '<Serializable()>' -> skip
     ;
 
 INTERFACE_JUNK
@@ -80,3 +87,12 @@ COMMENT
 WHITESPACE
     : [ \t\r\n] -> skip
     ;
+
+//FUNCTION_BODY
+//    : ~[\n]+ '\n'
+//    ;
+/* TODO can I read a whole line somehow? */
+FUNCTION_BODY_JUNK
+    : .
+    ;
+
