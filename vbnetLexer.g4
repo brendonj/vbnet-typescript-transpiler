@@ -16,6 +16,7 @@ FUNCTION: 'Function';
 IMPORTS: 'Imports';
 INTERFACE: 'Interface';
 LIST: 'List' | 'System.Collections.Generic.List';
+NAMESPACE: 'Namespace';
 NOTHING: 'Nothing';
 OF: 'Of';
 OPTIONAL: 'Optional';

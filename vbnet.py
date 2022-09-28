@@ -80,6 +80,11 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             ctx.IDENTIFIER().getText(),
             self.visit(ctx.typeName())))
 
+    def visitNamespaceDeclaration(self, ctx):
+        print("namespace %s {" % ctx.IDENTIFIER().getText())
+        self.visitChildren(ctx)
+        print("}")
+
     def visitSimpleExpression(self, ctx):
         if ctx.NOTHING():
             return "null"

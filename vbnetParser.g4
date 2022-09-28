@@ -10,10 +10,15 @@ statement
     : enumDeclaration
     | interfaceDeclaration
     | importStatement
+    | namespaceDeclaration
     ;
 
 importStatement
     : IMPORTS IDENTIFIER
+    ;
+
+namespaceDeclaration
+    : NAMESPACE IDENTIFIER statement+ END_NAMESPACE
     ;
 
 interfaceDeclaration
