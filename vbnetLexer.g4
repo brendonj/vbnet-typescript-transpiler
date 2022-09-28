@@ -64,6 +64,14 @@ PROPERTY_JUNK
     : '<Xml.Serialization.XmlIgnore>' -> skip
     ;
 
+REGION_START_JUNK
+    : '#Region' ~[\n]* '\n' -> skip
+    ;
+
+REGION_END_JUNK
+    : '#End Region' -> skip
+    ;
+
 COMMENT
     : '\'' ~[\n]* '\n' -> skip
     ;
