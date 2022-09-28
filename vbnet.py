@@ -59,12 +59,17 @@ class vbnetPrintVisitor(vbnetParserVisitor):
 
     # parameterModifier* IDENTIFIER AS typeName ( EQUALS simpleExpression )?
     def visitParameter(self, ctx):
+        default = ""
+        if ctx.simpleExpression():
+            #default = ctx.simpleExpression().getText()
+            default = self.visit(ctx.simpleExpression())
         modifiers = ctx.parameterModifier()
         optional = "?" if any([x.OPTIONAL() for x in modifiers]) else ""
-        return ["%s%s: %s" % (
+        return ["%s%s: %s%s" % (
             ctx.IDENTIFIER().getText(),
             optional,
-            self.visit(ctx.typeName()))
+            self.visit(ctx.typeName()),
+            " = %s" % default if default else "")
         ]
 
     def visitInterfaceProperty(self, ctx):
@@ -74,6 +79,13 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             "readonly " if readonly else "",
             ctx.IDENTIFIER().getText(),
             self.visit(ctx.typeName())))
+
+    def visitSimpleExpression(self, ctx):
+        if ctx.NOTHING():
+            return "null"
+        elif ctx.literal() and ctx.literal().booleanLiteral():
+            return ctx.literal().booleanLiteral().getText().lower()
+        return ctx.getText()
 
     def visitSimpleType(self, ctx):
         name = "UNKNOWN"
