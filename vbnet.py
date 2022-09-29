@@ -170,11 +170,13 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         return "%s[]" % self.visit(ctx.typeName())
 
     def visitMapType(self, ctx):
-        return "Map<%s, %s>" % (
-            self.visit(ctx.typeName(0)),
-            self.visit(ctx.typeName(1)))
-            #ctx.typeName(0).getText(),
-            #ctx.typeName(1).getText())
+        key = self.visit(ctx.typeName(0))
+        value = self.visit(ctx.typeName(1))
+
+        if key == "string":
+            return "{ [key: string]: %s }" % value
+
+        return "Map<%s, %s>" % (key, value)
 
     # looks like the last type is the return type?
     def visitFunctionType(self, ctx):
