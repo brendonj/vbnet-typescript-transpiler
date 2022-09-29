@@ -34,12 +34,13 @@ OVERRIDES: 'Overrides';
 OVERRIDABLE: 'Overridable';
 PROPERTY: 'Property';
 PUBLIC: 'Public';
+QUEUE: 'Queue';
 READONLY: 'ReadOnly';
 SHARED: 'Shared';
 SUB: 'Sub';
 STRING: 'String';
 TUPLE: 'Tuple';
-QUEUE: 'Queue';
+WITH: 'With';
 
 TRUE: 'True';
 FALSE: 'False';
@@ -93,6 +94,14 @@ REGION_END_JUNK
 
 COMMENT
     : '\'' ~[\n]* '\n' -> skip
+    ;
+
+CONNECTION_POINT_DEFAULT_JUNK
+    : '{.IsEnergyConnector = True}'
+    ;
+
+CONTINUANCE
+    : ' _' -> skip
     ;
 
 WHITESPACE

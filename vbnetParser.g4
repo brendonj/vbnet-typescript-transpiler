@@ -73,11 +73,11 @@ classStatement
     ;
 
 classProperty
-    : PUBLIC? OVERRIDABLE? PROPERTY IDENTIFIER ( OPENPAREN CLOSEPAREN )? AS NEW? typeName ( EQUALS simpleExpression )? implementsStatement? ( functionBody+ END_PROPERTY )?
+    : PUBLIC? OVERRIDABLE? PROPERTY IDENTIFIER ( OPENPAREN CLOSEPAREN )? AS NEW? typeName ( EQUALS (simpleExpression | complexExpression) )? implementsStatement? ( functionBody+ END_PROPERTY )?
     ;
 
 classFunction
-    : PUBLIC? SHARED? OVERRIDABLE? OVERRIDES? OVERLOADS? FUNCTION IDENTIFIER OPENPAREN parameterList? CLOSEPAREN AS typeName implementsStatement? functionBody+ END_FUNCTION
+    : PUBLIC? SHARED? OVERRIDABLE? OVERRIDES? OVERLOADS? FUNCTION IDENTIFIER OPENPAREN parameterList? CLOSEPAREN ( AS typeName )? implementsStatement? functionBody+ END_FUNCTION
     ;
 
 classSub
@@ -103,7 +103,14 @@ functionBody
     | FALSE
     | NUMBER
     | STRINGLITERAL
+    | NOTHING
+    | BYVAL
+    | BOOLEAN
+    | DOUBLE
+    | INTEGER
+    | STRING
     | NEW
+    | WITH
     ;
 
 parameterList
@@ -120,9 +127,13 @@ parameterModifier
     ;
 
 simpleExpression
-    : IDENTIFIER
+    : ( NEW )? IDENTIFIER
     | NOTHING
     | literal
+    ;
+
+complexExpression
+    : NEW IDENTIFIER OPENPAREN CLOSEPAREN WITH CONNECTION_POINT_DEFAULT_JUNK
     ;
 
 literal

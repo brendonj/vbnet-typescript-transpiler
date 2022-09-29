@@ -133,6 +133,9 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         if ctx.simpleExpression():
             #default = ctx.simpleExpression().getText()
             default = self.visit(ctx.simpleExpression())
+        elif ctx.complexExpression():
+            #default = "XXX"
+            pass
         print("%s: %s%s;" % (
             ctx.IDENTIFIER().getText(),
             self.visit(ctx.typeName()),
@@ -146,7 +149,9 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         if ctx.parameterList():
             params = self.visit(ctx.parameterList())
         #returnType = ctx.typeName().getText()
-        returnType = self.visit(ctx.typeName())
+        returnType = "unknown"
+        if ctx.typeName():
+            returnType = self.visit(ctx.typeName())
         print("%s%s(%s): %s {" % (
             "static " if ctx.SHARED() else "",
             identifier,
