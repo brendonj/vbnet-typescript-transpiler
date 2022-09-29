@@ -165,6 +165,14 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         print("/* TODO implement function body */")
         print("}")
 
+    def visitClassConstructor(self, ctx):
+        params = []
+        if ctx.parameterList():
+            params = self.visit(ctx.parameterList())
+        print("constructor(%s) {" % (", ".join(params)))
+        print("/* TODO constructor body */")
+        print("}")
+
     def visitSimpleExpression(self, ctx):
         if ctx.NOTHING():
             return "null"

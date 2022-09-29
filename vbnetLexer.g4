@@ -24,6 +24,7 @@ INTERFACE: 'Interface';
 LIST: 'List' | 'System.Collections.Generic.List';
 MUST_INHERIT: 'MustInherit';
 NAMESPACE: 'Namespace';
+NEW: 'New';
 NOTHING: 'Nothing';
 OF: 'Of';
 OPTIONAL: 'Optional';

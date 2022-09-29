@@ -68,6 +68,7 @@ classDeclaration
 classStatement
     : classProperty
     | classFunction
+    | classConstructor
     | classSub
     ;
 
@@ -81,6 +82,10 @@ classFunction
 
 classSub
     : PUBLIC? OVERRIDABLE? OVERRIDES? SUB IDENTIFIER OPENPAREN parameterList? CLOSEPAREN ( AS typeName )? functionBody* END_SUB
+    ;
+
+classConstructor
+    : PUBLIC? OVERRIDABLE? OVERRIDES? SUB NEW OPENPAREN parameterList? CLOSEPAREN ( AS typeName )? implementsStatement? functionBody* END_SUB
     ;
 
 /* XXX this needs to be a whole line of stuff if I want to print it nicely */
@@ -98,6 +103,7 @@ functionBody
     | FALSE
     | NUMBER
     | STRINGLITERAL
+    | NEW
     ;
 
 parameterList
