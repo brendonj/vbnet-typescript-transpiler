@@ -73,15 +73,15 @@ classStatement
     ;
 
 classProperty
-    : PUBLIC? OVERRIDABLE? PROPERTY IDENTIFIER ( OPENPAREN CLOSEPAREN )? AS NEW? typeName ( EQUALS simpleExpression )?
+    : PUBLIC? OVERRIDABLE? PROPERTY IDENTIFIER ( OPENPAREN CLOSEPAREN )? AS NEW? typeName ( EQUALS simpleExpression )? implementsStatement?
     ;
 
 classFunction
-    : PUBLIC? SHARED? OVERRIDABLE? OVERRIDES? OVERLOADS? FUNCTION IDENTIFIER OPENPAREN parameterList? CLOSEPAREN AS typeName functionBody+ END_FUNCTION
+    : PUBLIC? SHARED? OVERRIDABLE? OVERRIDES? OVERLOADS? FUNCTION IDENTIFIER OPENPAREN parameterList? CLOSEPAREN AS typeName implementsStatement? functionBody+ END_FUNCTION
     ;
 
 classSub
-    : PUBLIC? OVERRIDABLE? OVERRIDES? SUB IDENTIFIER OPENPAREN parameterList? CLOSEPAREN ( AS typeName )? functionBody* END_SUB
+    : PUBLIC? OVERRIDABLE? OVERRIDES? SUB IDENTIFIER OPENPAREN parameterList? CLOSEPAREN ( AS typeName )? implementsStatement? functionBody* END_SUB
     ;
 
 classConstructor
