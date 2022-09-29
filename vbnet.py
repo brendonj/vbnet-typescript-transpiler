@@ -117,7 +117,9 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             base = ctx.inheritsStatement().IDENTIFIER().getText()
         if ctx.implementsStatement():
             iface = ", ".join(self.visit(ctx.implementsStatement()))
-        print("class %s%s%s {" % (
+        print("%s%sclass %s%s%s {" % (
+            "public " if ctx.PUBLIC() else "",
+            "abstract " if ctx.MUST_INHERIT() else "",
             ctx.IDENTIFIER().getText(),
             " extends %s" % base if base else "",
             " implements %s" % iface if iface else ""))
@@ -145,7 +147,11 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             params = self.visit(ctx.parameterList())
         #returnType = ctx.typeName().getText()
         returnType = self.visit(ctx.typeName())
-        print("%s(%s): %s {" % (identifier, ", ".join(params), returnType))
+        print("%s%s(%s): %s {" % (
+            "static " if ctx.SHARED() else "",
+            identifier,
+            ", ".join(params),
+            returnType))
         print("/* TODO implement function body */")
         print("}")
 

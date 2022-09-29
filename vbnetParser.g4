@@ -57,8 +57,12 @@ implementsStatement
     : IMPLEMENTS IDENTIFIER ( COMMA IDENTIFIER )?
     ;
 
+//classModifier
+//    : PUBLIC
+//    ;
+
 classDeclaration
-    : classModifier? CLASS IDENTIFIER inheritsStatement? implementsStatement? classStatement+ END_CLASS
+    : PUBLIC? MUST_INHERIT? CLASS IDENTIFIER inheritsStatement? implementsStatement? classStatement+ END_CLASS
     ;
 
 classStatement
@@ -68,15 +72,15 @@ classStatement
     ;
 
 classProperty
-    : PUBLIC? PROPERTY IDENTIFIER ( OPENPAREN CLOSEPAREN )? AS typeName ( EQUALS simpleExpression )?
+    : PUBLIC? OVERRIDABLE? PROPERTY IDENTIFIER ( OPENPAREN CLOSEPAREN )? AS NEW? typeName ( EQUALS simpleExpression )?
     ;
 
 classFunction
-    : PUBLIC? OVERRIDES? FUNCTION IDENTIFIER OPENPAREN parameterList? CLOSEPAREN AS typeName functionBody+ END_FUNCTION
+    : PUBLIC? SHARED? OVERRIDABLE? OVERRIDES? OVERLOADS? FUNCTION IDENTIFIER OPENPAREN parameterList? CLOSEPAREN AS typeName functionBody+ END_FUNCTION
     ;
 
 classSub
-    : PUBLIC? OVERRIDES? SUB IDENTIFIER OPENPAREN parameterList? CLOSEPAREN ( AS typeName )? functionBody+ END_SUB
+    : PUBLIC? OVERRIDABLE? OVERRIDES? SUB IDENTIFIER OPENPAREN parameterList? CLOSEPAREN ( AS typeName )? functionBody* END_SUB
     ;
 
 /* XXX this needs to be a whole line of stuff if I want to print it nicely */
