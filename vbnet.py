@@ -31,6 +31,7 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         #    members += self.visit(i)
         print(",".join(members))
         print("}")
+        print()
 
     def visitEnumMember(self, ctx):
         return ["%s" % ctx.IDENTIFIER().getText()]
@@ -41,6 +42,7 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             ctx.IDENTIFIER().getText()))
         self.visitChildren(ctx)
         print("}")
+        print()
 
     # FUNCTION IDENTIFIER OPENPAREN parameterList? CLOSEPAREN AS typeName
     def visitInterfaceFunction(self, ctx):
@@ -99,6 +101,7 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             " extends %s" % base if base else ""))
         self.visitChildren(ctx)
         print("}")
+        print()
 
     # XXX check if this will actually be different to interface properties
     def visitClassProperty(self, ctx):
