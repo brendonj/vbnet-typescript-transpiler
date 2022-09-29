@@ -16,6 +16,7 @@ END_SUB: 'End Sub';
 ENUM: 'Enum';
 FUNC: 'Func';
 FUNCTION: 'Function';
+IMPLEMENTS: 'Implements';
 IMPORTS: 'Imports';
 INHERITS: 'Inherits';
 INTEGER: 'Integer';

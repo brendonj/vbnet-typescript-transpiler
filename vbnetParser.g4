@@ -53,12 +53,12 @@ inheritsStatement
     : INHERITS IDENTIFIER
     ;
 
-classModifier
-    : PUBLIC
+implementsStatement
+    : IMPLEMENTS IDENTIFIER ( COMMA IDENTIFIER )?
     ;
 
 classDeclaration
-    : classModifier? CLASS IDENTIFIER inheritsStatement? classStatement+ END_CLASS
+    : classModifier? CLASS IDENTIFIER inheritsStatement? implementsStatement? classStatement+ END_CLASS
     ;
 
 classStatement

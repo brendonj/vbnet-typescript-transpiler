@@ -100,14 +100,27 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         self.visitChildren(ctx)
         print("}")
 
+    def visitImplementsStatement(self, ctx):
+        ifaces = []
+        if len(ctx.IDENTIFIER()) == 1:
+            ifaces = [ctx.IDENTIFIER().getText()]
+        else:
+            for i in ctx.IDENTIFIER():
+                ifaces.append(i.getText())
+        return ifaces
+
     # classModifier? CLASS IDENTIFIER inheritsStatement? classStatement+ END CLASS
     def visitClassDeclaration(self, ctx):
         base = ""
+        iface = ""
         if ctx.inheritsStatement():
             base = ctx.inheritsStatement().IDENTIFIER().getText()
-        print("class %s%s {" % (
+        if ctx.implementsStatement():
+            iface = ", ".join(self.visit(ctx.implementsStatement()))
+        print("class %s%s%s {" % (
             ctx.IDENTIFIER().getText(),
-            " extends %s" % base if base else ""))
+            " extends %s" % base if base else "",
+            " implements %s" % iface if iface else ""))
         self.visitChildren(ctx)
         print("}")
         print()
