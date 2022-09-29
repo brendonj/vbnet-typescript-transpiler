@@ -15,7 +15,7 @@ statement
     ;
 
 importStatement
-    : IMPORTS IDENTIFIER
+    : IMPORTS IDENTIFIER ( EQUALS IDENTIFIER )?
     ;
 
 namespaceDeclaration

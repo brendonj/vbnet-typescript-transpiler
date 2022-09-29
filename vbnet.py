@@ -19,7 +19,16 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         return aggregate
 
     def visitImportStatement(self, ctx):
-        print("// import %s" % ctx.IDENTIFIER().getText())
+        alias = ""
+        namespace = ""
+
+        if len(ctx.IDENTIFIER()) == 1:
+            namespace = ctx.IDENTIFIER(0).getText()
+        else:
+            alias = " as %s" % ctx.IDENTIFIER(0).getText()
+            namespace = ctx.IDENTIFIER(1).getText()
+
+        print("// import %s%s" % (namespace, alias))
 
     def visitEnumDeclaration(self, ctx):
         # TODO when should we not export an enum?
