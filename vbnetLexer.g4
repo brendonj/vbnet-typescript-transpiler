@@ -2,9 +2,11 @@ lexer grammar vbnetLexer;
 
 ACTION: 'Action';
 AS: 'As';
+BOOLEAN: 'Boolean';
 BYVAL: 'ByVal';
 CLASS: 'Class';
 DICTIONARY: 'Dictionary';
+DOUBLE: 'Double';
 END_CLASS: 'End Class';
 END_ENUM: 'End Enum';
 END_FUNCTION: 'End Function';
@@ -16,6 +18,7 @@ FUNC: 'Func';
 FUNCTION: 'Function';
 IMPORTS: 'Imports';
 INHERITS: 'Inherits';
+INTEGER: 'Integer';
 INTERFACE: 'Interface';
 LIST: 'List' | 'System.Collections.Generic.List';
 NAMESPACE: 'Namespace';
@@ -27,6 +30,7 @@ PROPERTY: 'Property';
 PUBLIC: 'Public';
 READONLY: 'ReadOnly';
 SUB: 'Sub';
+STRING: 'String';
 TUPLE: 'Tuple';
 QUEUE: 'Queue';
 

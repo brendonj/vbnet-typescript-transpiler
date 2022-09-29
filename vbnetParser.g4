@@ -143,14 +143,22 @@ enumMember
     ;
 
 typeName
-    : IDENTIFIER                                                 # simpleType
-    | ACTION                                                     # simpleType
+    : typeAtom                                                   # simpleType
     | TUPLE OPENPAREN OF typeName COMMA typeName CLOSEPAREN      # tupleType
-    | IDENTIFIER OPENPAREN CLOSEPAREN                            # arrayType
+    | typeName OPENPAREN CLOSEPAREN                              # arrayType
     | LIST OPENPAREN OF typeName CLOSEPAREN                      # arrayType
     | QUEUE OPENPAREN OF typeName CLOSEPAREN                     # arrayType
     | ACTION OPENPAREN OF typeName CLOSEPAREN                    # arrayType
     | ACTION OPENPAREN OF typeName COMMA typeName CLOSEPAREN     # mapType
     | DICTIONARY OPENPAREN OF typeName COMMA typeName CLOSEPAREN # mapType
     | FUNC OPENPAREN OF typeName COMMA typeName CLOSEPAREN       # functionType
+    ;
+
+typeAtom
+    : BOOLEAN
+    | DOUBLE
+    | INTEGER
+    | STRING
+    | ACTION
+    | IDENTIFIER
     ;

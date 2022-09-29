@@ -144,19 +144,19 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             return ctx.literal().booleanLiteral().getText().lower()
         return ctx.getText()
 
-    def visitSimpleType(self, ctx):
-        name = "UNKNOWN"
-        if ctx.IDENTIFIER():
-            name = ctx.IDENTIFIER().getText()
-        elif ctx.ACTION():
-            name = ctx.ACTION().getText()
+    def visitTypeAtom(self, ctx):
+        atom = ctx.getText()
         types = {
             "Boolean": "boolean",
             "String": "string",
             "Integer": "number",
             "Double": "number",
         }
-        return types.get(name, name)
+        return types.get(atom, atom)
+
+    def visitSimpleType(self, ctx):
+        # return it directly as a string rather than aggregate type
+        return self.visit(ctx.typeAtom())
 
     def visitTupleType(self, ctx):
         return "[%s, %s]" % (
@@ -164,9 +164,6 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             self.visit(ctx.typeName(1)))
 
     def visitArrayType(self, ctx):
-        if ctx.IDENTIFIER():
-            return "%s[]" % ctx.IDENTIFIER().getText()
-        #return "%s[]" % ctx.typeName().getText()
         return "%s[]" % self.visit(ctx.typeName())
 
     def visitMapType(self, ctx):
