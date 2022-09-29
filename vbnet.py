@@ -99,6 +99,7 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         print("namespace %s {" % ctx.IDENTIFIER().getText())
         self.visitChildren(ctx)
         print("}")
+        print()
 
     def visitImplementsStatement(self, ctx):
         ifaces = []
@@ -159,6 +160,7 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             returnType))
         print("/* TODO implement function body */")
         print("}")
+        print()
 
     def visitClassSub(self, ctx):
         identifier = ctx.IDENTIFIER().getText()
@@ -169,6 +171,7 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         print("%s(%s) {" % (identifier, ", ".join(params)))
         print("/* TODO implement function body */")
         print("}")
+        print()
 
     def visitClassConstructor(self, ctx):
         params = []
@@ -177,6 +180,7 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         print("constructor(%s) {" % (", ".join(params)))
         print("/* TODO constructor body */")
         print("}")
+        print()
 
     def visitSimpleExpression(self, ctx):
         if ctx.NOTHING():
