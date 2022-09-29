@@ -22,7 +22,8 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         print("// import %s" % ctx.IDENTIFIER().getText())
 
     def visitEnumDeclaration(self, ctx):
-        print("enum %s {" % (ctx.IDENTIFIER().getText()))
+        # TODO when should we not export an enum?
+        print("export enum %s {" % (ctx.IDENTIFIER().getText()))
         #members = self.visit(ctx.enumMember())
         members = self.visitChildren(ctx)
         #members = []
