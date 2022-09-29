@@ -12,6 +12,7 @@ END_ENUM: 'End Enum';
 END_FUNCTION: 'End Function';
 END_INTERFACE: 'End Interface';
 END_NAMESPACE: 'End Namespace';
+END_PROPERTY: 'End Property';
 END_SUB: 'End Sub';
 ENUM: 'Enum';
 FUNC: 'Func';

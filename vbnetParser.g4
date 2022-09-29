@@ -73,7 +73,7 @@ classStatement
     ;
 
 classProperty
-    : PUBLIC? OVERRIDABLE? PROPERTY IDENTIFIER ( OPENPAREN CLOSEPAREN )? AS NEW? typeName ( EQUALS simpleExpression )? implementsStatement?
+    : PUBLIC? OVERRIDABLE? PROPERTY IDENTIFIER ( OPENPAREN CLOSEPAREN )? AS NEW? typeName ( EQUALS simpleExpression )? implementsStatement? ( functionBody+ END_PROPERTY )?
     ;
 
 classFunction
