@@ -158,7 +158,7 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             identifier,
             ", ".join(params),
             returnType))
-        print("/* TODO implement function body */")
+        print("throw new Error('not implemented');")
         print("}")
         print()
 
@@ -169,7 +169,7 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         if ctx.parameterList():
             params = self.visit(ctx.parameterList())
         print("%s(%s) {" % (identifier, ", ".join(params)))
-        print("/* TODO implement function body */")
+        print("throw new Error('not implemented');")
         print("}")
         print()
 
@@ -178,7 +178,7 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         if ctx.parameterList():
             params = self.visit(ctx.parameterList())
         print("constructor(%s) {" % (", ".join(params)))
-        print("/* TODO constructor body */")
+        print("throw new Error('not implemented');")
         print("}")
         print()
 
