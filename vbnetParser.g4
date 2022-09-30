@@ -119,7 +119,7 @@ parameterList
     ;
 
 parameter
-    : parameterModifier* IDENTIFIER AS typeName ( EQUALS simpleExpression )?
+    : parameterModifier* IDENTIFIER ( OPENPAREN CLOSEPAREN )? AS typeName ( EQUALS simpleExpression )?
     ;
 
 parameterModifier
