@@ -70,6 +70,7 @@ classStatement
     | classFunction
     | classConstructor
     | classSub
+    | enumDeclaration
     ;
 
 classProperty
@@ -156,7 +157,7 @@ numericLiteral
     ;
 
 enumDeclaration
-    : ENUM IDENTIFIER enumMember+ END_ENUM
+    : PUBLIC? ENUM IDENTIFIER enumMember+ END_ENUM
     ;
 
 enumMember
