@@ -3,6 +3,7 @@ lexer grammar vbnetLexer;
 ACTION: 'Action';
 AS: 'As';
 BOOLEAN: 'Boolean';
+BYREF: 'ByRef';
 BYVAL: 'ByVal';
 CLASS: 'Class';
 DICTIONARY: 'Dictionary';

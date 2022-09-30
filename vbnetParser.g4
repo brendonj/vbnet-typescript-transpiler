@@ -123,7 +123,8 @@ parameter
     ;
 
 parameterModifier
-    : BYVAL
+    : BYREF
+    | BYVAL
     | OPTIONAL
     ;
 
