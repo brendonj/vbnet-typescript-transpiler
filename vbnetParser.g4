@@ -34,7 +34,7 @@ interfaceStatements
     ;
 
 interfaceProperty
-    : propertyModifier? PROPERTY IDENTIFIER ( OPENPAREN CLOSEPAREN )? AS typeName
+    : propertyModifier? PROPERTY IDENTIFIER ( OPENPAREN CLOSEPAREN )? ( AS typeName )?
     ;
 
 propertyModifier

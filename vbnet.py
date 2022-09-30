@@ -96,10 +96,13 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         # XXX could move modifiers into same rule, then check ctx.READONLY()
         modifiers = ctx.propertyModifier()
         readonly = True if modifiers and modifiers.READONLY() else False
+        returnType = "Object"
+        if ctx.typeName():
+            returnType = self.visit(ctx.typeName())
         print("%s%s: %s;" % (
             "readonly " if readonly else "",
             ctx.IDENTIFIER().getText(),
-            self.visit(ctx.typeName())))
+            returnType))
 
     def visitNamespaceDeclaration(self, ctx):
         print("namespace %s {" % ctx.IDENTIFIER().getText())
