@@ -43,7 +43,13 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         print()
 
     def visitEnumMember(self, ctx):
-        return ["%s" % ctx.IDENTIFIER().getText()]
+        value = ""
+        if ctx.simpleExpression():
+            value = self.visit(ctx.simpleExpression())
+        return ["%s%s" % (
+            ctx.IDENTIFIER().getText(),
+            " = %s" % value if value else "")
+        ]
 
     def visitInterfaceDeclaration(self, ctx):
         print("%sinterface %s {" % (

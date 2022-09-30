@@ -160,7 +160,7 @@ enumDeclaration
     ;
 
 enumMember
-    : IDENTIFIER
+    : IDENTIFIER ( EQUALS simpleExpression )?
     ;
 
 typeName
