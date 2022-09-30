@@ -27,6 +27,7 @@ MUST_INHERIT: 'MustInherit';
 NAMESPACE: 'Namespace';
 NEW: 'New';
 NOTHING: 'Nothing';
+NULLABLE: 'Nullable';
 OF: 'Of';
 OPTIONAL: 'Optional';
 OVERLOADS: 'Overloads';

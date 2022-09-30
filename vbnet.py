@@ -212,6 +212,9 @@ class vbnetPrintVisitor(vbnetParserVisitor):
         # return it directly as a string rather than aggregate type
         return self.visit(ctx.typeAtom())
 
+    def visitNullableType(self, ctx):
+        return "%s | null" % self.visit(ctx.typeName())
+
     def visitTupleType(self, ctx):
         return "[%s, %s]" % (
             self.visit(ctx.typeName(0)),

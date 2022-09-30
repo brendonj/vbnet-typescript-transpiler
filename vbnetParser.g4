@@ -166,6 +166,7 @@ enumMember
 
 typeName
     : typeAtom                                                   # simpleType
+    | NULLABLE OPENPAREN OF typeName CLOSEPAREN                  # nullableType
     | TUPLE OPENPAREN OF typeName COMMA typeName CLOSEPAREN      # tupleType
     | typeName OPENPAREN CLOSEPAREN                              # arrayType
     | LIST OPENPAREN OF typeName CLOSEPAREN                      # arrayType
