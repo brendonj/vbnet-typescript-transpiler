@@ -112,6 +112,9 @@ functionBody
     | STRING
     | NEW
     | WITH
+    | SUB
+    | FUNCTION
+    | TUPLE
     ;
 
 parameterList
