@@ -108,6 +108,10 @@ CONTINUANCE
     : ' _' -> skip
     ;
 
+HASH
+    : '#' -> skip
+    ;
+
 WHITESPACE
     : [ \t\r\n] -> skip
     ;
