@@ -74,7 +74,7 @@ classStatement
     ;
 
 classProperty
-    : PUBLIC? OVERRIDABLE? PROPERTY IDENTIFIER ( OPENPAREN CLOSEPAREN )? AS NEW? typeName ( EQUALS (simpleExpression | complexExpression) )? implementsStatement? ( functionBody+ END_PROPERTY )?
+    : PUBLIC? OVERRIDABLE? SHARED? PROPERTY IDENTIFIER ( OPENPAREN CLOSEPAREN )? AS NEW? typeName ( EQUALS (simpleExpression | complexExpression) )? implementsStatement? ( functionBody+ END_PROPERTY )?
     ;
 
 classFunction
@@ -82,7 +82,7 @@ classFunction
     ;
 
 classSub
-    : PUBLIC? OVERRIDABLE? OVERRIDES? SUB IDENTIFIER OPENPAREN parameterList? CLOSEPAREN ( AS typeName )? implementsStatement? functionBody* END_SUB
+    : ( PUBLIC | FRIEND )? OVERRIDABLE? OVERRIDES? SUB IDENTIFIER OPENPAREN parameterList? CLOSEPAREN ( AS typeName )? implementsStatement? functionBody* END_SUB
     ;
 
 classConstructor
