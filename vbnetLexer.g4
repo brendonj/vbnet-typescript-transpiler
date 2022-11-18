@@ -116,11 +116,7 @@ WHITESPACE
     : [ \t\r\n] -> skip
     ;
 
-//FUNCTION_BODY
-//    : ~[\n]+ '\n'
-//    ;
 /* TODO can I read a whole line somehow? */
 FUNCTION_BODY_JUNK
     : .
     ;
-

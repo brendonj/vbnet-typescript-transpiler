@@ -21,23 +21,17 @@ class vbnetPrintVisitor(vbnetParserVisitor):
     def visitImportStatement(self, ctx):
         alias = ""
         namespace = ""
-
         if len(ctx.IDENTIFIER()) == 1:
             namespace = ctx.IDENTIFIER(0).getText()
         else:
             alias = " as %s" % ctx.IDENTIFIER(0).getText()
             namespace = ctx.IDENTIFIER(1).getText()
-
         print("// import %s%s" % (namespace, alias))
 
     def visitEnumDeclaration(self, ctx):
         # TODO when should we not export an enum?
         print("export enum %s {" % (ctx.IDENTIFIER().getText()))
-        #members = self.visit(ctx.enumMember())
         members = self.visitChildren(ctx)
-        #members = []
-        #for i in ctx.enumMember():
-        #    members += self.visit(i)
         print(",".join(members))
         print("}")
         print()
@@ -63,10 +57,8 @@ class vbnetPrintVisitor(vbnetParserVisitor):
     def visitInterfaceFunction(self, ctx):
         identifier = ctx.IDENTIFIER().getText()
         params = []
-        #params = self.visitChildren(ctx)
         if ctx.parameterList():
             params = self.visit(ctx.parameterList())
-        #returnType = ctx.typeName().getText()
         returnType = self.visit(ctx.typeName())
         print("%s(%s): %s;" % (identifier, ", ".join(params), returnType))
 
@@ -77,11 +69,11 @@ class vbnetPrintVisitor(vbnetParserVisitor):
             params = self.visit(ctx.parameterList())
         print("%s(%s): void;" % (identifier, ", ".join(params)))
 
+    # XXX parameters can't have default values in interfaces, but can in funcs
     # parameterModifier* IDENTIFIER AS typeName ( EQUALS simpleExpression )?
     def visitParameter(self, ctx):
         default = ""
         if ctx.simpleExpression():
-            #default = ctx.simpleExpression().getText()
             default = self.visit(ctx.simpleExpression())
         modifiers = ctx.parameterModifier()
         optional = "?" if any([x.OPTIONAL() for x in modifiers]) else ""
@@ -141,10 +133,8 @@ class vbnetPrintVisitor(vbnetParserVisitor):
     def visitClassProperty(self, ctx):
         default = ""
         if ctx.simpleExpression():
-            #default = ctx.simpleExpression().getText()
             default = self.visit(ctx.simpleExpression())
         elif ctx.complexExpression():
-            #default = "XXX"
             pass
         print("%s: %s%s;" % (
             ctx.IDENTIFIER().getText(),
@@ -155,10 +145,8 @@ class vbnetPrintVisitor(vbnetParserVisitor):
     def visitClassFunction(self, ctx):
         identifier = ctx.IDENTIFIER().getText()
         params = []
-        #params = self.visitChildren(ctx)
         if ctx.parameterList():
             params = self.visit(ctx.parameterList())
-        #returnType = ctx.typeName().getText()
         returnType = "unknown"
         if ctx.typeName():
             returnType = self.visit(ctx.typeName())
@@ -174,7 +162,6 @@ class vbnetPrintVisitor(vbnetParserVisitor):
     def visitClassSub(self, ctx):
         identifier = ctx.IDENTIFIER().getText()
         params = []
-        #params = self.visitChildren(ctx)
         if ctx.parameterList():
             params = self.visit(ctx.parameterList())
         print("%s(%s) {" % (identifier, ", ".join(params)))
