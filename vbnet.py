@@ -112,11 +112,11 @@ class vbnetPrintVisitor(vbnetParserVisitor):
 
     def visitImplementsStatement(self, ctx):
         ifaces = []
-        if len(ctx.IDENTIFIER()) == 1:
-            ifaces = [ctx.IDENTIFIER().getText()]
-        else:
+        if isinstance(ctx.IDENTIFIER(), list):
             for i in ctx.IDENTIFIER():
                 ifaces.append(i.getText())
+        else:
+            ifaces = [ctx.IDENTIFIER().getText()]
         return ifaces
 
     # classModifier? CLASS IDENTIFIER inheritsStatement? classStatement+ END CLASS
